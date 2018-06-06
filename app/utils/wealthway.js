@@ -1,24 +1,94 @@
-exports.getStock = function getStock(stock, type) {
-  const defs = {
-    stockURL : 'http://web.juhe.cn:8080/finance/stock/hs?gid={stock}&key=09220f02b26084c5aa27729f5a109e1a',
+supportedSx = [
+  {
+    "en": 'EURUSD',
+    "cn": '欧元美元'
+  },
+  {
+    "en": 'USDJPY',
+    "cn": '美元日元'
+  },
+  {
+    "en": 'GBPUSD',
+    "cn": '英镑美元'
+  },
+  {
+    "en": 'AUDUSD',
+    "cn": '澳元美元'
+  },
+  {
+    "en": 'USDCAD',
+    "cn": '美元加元'
+  },
+  {
+    "en": 'EURGBP',
+    "cn": '欧元英镑'
+  },
+  {
+    "en": 'USDCNH',
+    "cn": '美元人民币'
+  },
+  {
+    "en": 'USDCHF',
+    "cn": '美元瑞郎'
+  },
+  {
+    "en": 'EURJPY',
+    "cn": '欧元日元'
+  },
+]
 
-  };
+exports.getAllSupportedSxs = function getAllSupportedSxs(){
+  return supportedSx;
+}
 
+exports.getSx = function getSx(sx, type) {
+  // const url = 'http://api.shenjian.io/exchange/currency?appid=b995963a1da180e340d4be8c7d5b1868&form={from}&to={to}';
+  // if (!sx || sx.length == 0) {
+  //   console.log('no sx provided to getSx()');
+  //   return;
+  // }
+  // console.log(sx);
 
-  if (!stock || stock.length == 0) {
-    console.log('&&&&&&&&&&&&&&&&&&&&No stock defined');
+  // let from = sx.substr(0,3);
+  // let to = sx.substr(3);
+
+  // console.log("from : ",from);
+  // console.log("to : ",to);
+
+  // let reqUrl = url.replace('{from}', from).replace('{to}',to)
+
+  // console.log("reqUrl : ",reqUrl);
+
+  // return fetch(reqUrl);
+  // return new Promise((resolve, reject) => {
+    
+  //      resolve(supportedSx.filter(item => 
+  //        item['en'].contains(sx) || item['cn'].contains(sx)
+  //      )) ;
+   
+  // })
+
+  const url = 'https://forex.1forge.com/1.0.3/quotes?pairs={sx}&api_key=aM03cvKGZAPirfcVXAigWgvxEdVS96JX';
+  if (!sx || sx.length == 0) {
+    console.log('no sx provided to getSx()');
     return;
   }
+  console.log(sx);
+  let reqUrl = url.replace('{sx}', sx);
+  return fetch(reqUrl);
+};
 
 
-
-  console.log(stock);
-
- 
-  const url = defs.stockURL.replace('{stock}',stock);
-  
-  console.log(url);
-  return fetch(url);  // eslint-disable-line no-undef
+exports.symbolSuggest = function symbolSuggest(query) {
+  return new Promise((resolve, reject) => {
+    
+       resolve(supportedSx.filter(item => {
+        console.log('2222222222222222', typeof item.en);
+        return item.en.includes(query) || item.cn.includes(query)
+       }
+       )) ;
+   
+  })
 };
 
 exports.properties = [
@@ -106,16 +176,6 @@ exports.properties = [
   'YearRange',
 ];
 
-exports.getNews = function getNews(symbol) {
-  const url = `https:///headline?s=${symbol}&region=CN&lang=zh-CN`;
-  console.log(url);
-  return fetch(url)  // eslint-disable-line no-undef
-    .then(response => response.text())
-    .catch(err => console.error(err));
-};
 
-exports.symbolSuggest = function symbolSuggest(query) {
-  const url = `http://www.ctxalgo.com/api/stocks`;
-  console.log(url);
-  return fetch(url).then(response => response.text()).catch(err => console.error(err));  // eslint-disable-line no-undef
-};
+
+

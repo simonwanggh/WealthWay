@@ -15,16 +15,17 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import Icon from 'react-native-vector-icons/Feather';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
 
 // Flux
-import StockActions from '../../../actions/stock-action';
-import StockStore from '../../../stores/stock-store';
+import SxActions from '../../../actions/sx-action';
+import SxStore from '../../../stores/sx-store';
 
 // View Elements
-import StockCell from './stock-cell';
+import SxCell from './sx-cell';
 import ChartPage from './chart-page';
 import DetailsPage from './details-page';
-import NewsPage from './news-page';
+
 
 const styles = StyleSheet.create({
   container: {
@@ -51,9 +52,23 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
+  toolbar: {
+    height: 56,
+    backgroundColor: '#202020',
+  },
+  navigatorBarIOS: {
+    backgroundColor: '#202020',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#424242',
+  },
+  navigatorLeftButton: {
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 50,
+  },
 });
 
-export default class MainBody extends React.Component {
+export default class QuotationBody extends React.Component {
   constructor(props) {
     super(props);
 
@@ -62,25 +77,25 @@ export default class MainBody extends React.Component {
       loaded: false,
       refreshing: false,
       key: Math.random(),
-    }, StockStore.getState());
+    }, SxStore.getState());
   }
 
   componentDidMount() {
-    StockStore.listen(state => this.onStockStoreChange(state));
+    SxStore.listen(state => this.onAppSxChange(state));
 
-    StockActions.updateStocks();
+    SxActions.updateSxs();
   }
 
   componentWillUnmount() {
-    StockStore.unlisten(state => this.onStockStoreChange(state));
+    SxStore.unlisten(state => this.onAppSxChange(state));
   }
 
-  onStockStoreChange(state) {
+  onAppSxChange(state) {
     this.setState({
       dataSource: this.state.dataSource.cloneWithRows(state.watchlist),
       watchlistResult: state.watchlistResult,
       selectedProperty: state.selectedProperty,
-      selectedStock: state.selectedStock,
+      selectedSx: state.selectedSx,
       key: Math.random(),
     });
   }
@@ -94,14 +109,51 @@ export default class MainBody extends React.Component {
 
   onRefresh() {
     this.setState({ refreshing: true });
-    StockActions.updateStocks();
+    SxActions.updateSxs();
     this.setState({ refreshing: false });
+  }
+
+  onActionSelected(position) {
+   
+      Actions.add();
+   
+  }
+
+  renderToolbar() {
+    if (Platform.OS === 'ios') {
+      return (
+        <NavigationBar
+          statusBar={{ tintColor: '#202020', style: 'light-content' }}
+          style={styles.navigatorBarIOS}
+          title={{ title: "汇率", tintColor: 'white' }}
+          leftButton={<MIcon style={styles.navigatorLeftButton} name="add" size={26} color="#3CABDA" onPress={Actions.add} />}
+          rightButton={{
+            title: 'Done',
+            tintColor: '#3CABDA',
+            handler: Actions.pop,
+          }}
+        />
+      );
+    } else if (Platform.OS === 'android') {
+      return (
+        <MIcon.ToolbarAndroid
+          style={styles.toolbar}
+          title='汇率'
+          titleColor="white"
+          actions={[
+            { title: 'Add', iconName: 'add', iconSize: 26, show: 'always' },           
+          ]}
+          onActionSelected={position => this.onActionSelected(position)}
+        />
+      );
+    }
   }
 
   render() {
     return (     
         <View style={styles.container}>
           {Platform.OS === 'ios' && <View style={styles.statusBar} />}
+          {this.renderToolbar()}
           <View style={styles.stocksBlock}>
             <ListView
               key={this.state.key}
@@ -112,7 +164,7 @@ export default class MainBody extends React.Component {
                 />
               }
               dataSource={this.state.dataSource}
-              renderRow={stock => <StockCell stock={stock} watchlistResult={this.state.watchlistResult} />}
+              renderRow={sx => {console.log("++++++++++++++++++",sx); return <SxCell sx={sx} watchlistResult={this.state.watchlistResult} />}}
             />
           </View>
           <View style={styles.detailedBlock}>
@@ -121,14 +173,9 @@ export default class MainBody extends React.Component {
               indicator={this.renderDotIndicator()}
             >
               <View>
-                <DetailsPage stock={this.state.selectedStock} watchlistResult={this.state.watchlistResult} />
+                <ChartPage sx={this.state.selectedSx} watchResult={this.state.watchlistResult[this.state.selectedSx.en]} />
               </View>
-              <View>
-                <ChartPage stock={this.state.selectedStock} watchlistResult={this.state.watchlistResult} />
-              </View>
-              <View>
-                <NewsPage key={this.state.key} stock={this.state.selectedStock} />
-              </View>
+              
             </IndicatorViewPager>
           </View>
         </View>

@@ -69,7 +69,7 @@ export default class DetailsPage extends React.Component {
     super(props);
 
     this.state = {
-      timeSpan: '1D',
+      timeSpan: '1H',
     };
   }
 
@@ -78,7 +78,7 @@ export default class DetailsPage extends React.Component {
       <View style={styles.container}>
         <View style={styles.nameBlock}>
           <Text style={styles.nameText}>
-            {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.name) || '--'}
+            {(this.props.watchResult && this.props.watchResult && this.props.watchResult.data.name) || '--'}
           </Text>
         </View>
         <View style={styles.details}>
@@ -88,7 +88,7 @@ export default class DetailsPage extends React.Component {
               今日开盘价
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.todayStartPri) || '--'}
+                {(this.props.watchResult && this.props.watchResult && this.props.watchResult.data.todayStartPri) || '--'}
               </Text>
             </View>
             <View style={styles.detailsRowColumn}>
@@ -96,7 +96,7 @@ export default class DetailsPage extends React.Component {
               涨跌百分比
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.increPer) || '--'}
+                {(this.props.watchResult && this.props.watchResult && this.props.watchResult.data.increPer) || '--'}
               </Text>
             </View>
           </View>
@@ -108,7 +108,7 @@ export default class DetailsPage extends React.Component {
               涨跌额
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.increase) || '--'}
+                {(this.props.watchResult && this.props.watchResult && this.props.watchResult.data.increase) || '--'}
               </Text>
             </View>
             <View style={styles.detailsRowColumn}>
@@ -116,7 +116,7 @@ export default class DetailsPage extends React.Component {
               今日最高价
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.todayMax) || '--'}
+                {(this.props.watchResult && this.props.watchResult.data.todayMax) || '--'}
               </Text>
             </View>
           </View>
@@ -128,7 +128,7 @@ export default class DetailsPage extends React.Component {
               今日最低价
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.todayMin) || '--'}
+                {(this.props.watchResult && this.props.watchResult.data.todayMin) || '--'}
               </Text>
             </View>
             <View style={styles.detailsRowColumn}>
@@ -136,7 +136,7 @@ export default class DetailsPage extends React.Component {
               成交量
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.traNumber) || '--'}
+                {(this.props.watchResult && this.props.watchResult.data.traNumber) || '--'}
               </Text>
             </View>
           </View>
@@ -148,7 +148,7 @@ export default class DetailsPage extends React.Component {
               成交金额
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.traAmount) || '--'}
+                {(this.props.watchResult  && this.props.watchResult.data.traAmount) || '--'}
               </Text>
             </View>
             <View style={styles.detailsRowColumn}>
@@ -156,7 +156,7 @@ export default class DetailsPage extends React.Component {
               昨日收盘价
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.yestodEndPri) || '--'}
+                {(this.props.watchResult && this.props.watchResult.data.yestodEndPri) || '--'}
               </Text>
             </View>
           </View>
@@ -168,7 +168,7 @@ export default class DetailsPage extends React.Component {
               日期
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.date) || '--'}
+                {(this.props.watchResult && this.props.watchResult.data.date) || '--'}
               </Text>
             </View>
             <View style={styles.detailsRowColumn}>
@@ -176,7 +176,7 @@ export default class DetailsPage extends React.Component {
               时间
               </Text>
               <Text style={styles.valueText}>
-                {(this.props.watchlistResult && this.props.watchlistResult[this.props.stock[0]] && this.props.watchlistResult[this.props.stock[0]][0].data.time) || '--'}
+                {(this.props.watchResult  && this.props.watchResult.data.time) || '--'}
               </Text>
             </View>
           </View>
@@ -187,11 +187,11 @@ export default class DetailsPage extends React.Component {
 }
 
 DetailsPage.propTypes = {
-  watchlistResult: PropTypes.shape({}),
-  stock: PropTypes.array,
+  watchResult: PropTypes.shape({}),
+  sx: PropTypes.any,
 };
 
 DetailsPage.defaultProps = {
-  watchlistResult: [],
-  stock: [],
+  watchResult: [],
+  sx: {},
 };

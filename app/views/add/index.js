@@ -14,7 +14,7 @@ import { Actions } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 // Elements
-import StockCell from './elements/stock-cell';
+import SxCell from './elements/sx-cell';
 
 // Utils
 import wealthway from '../../utils/wealthway';
@@ -80,31 +80,31 @@ export default class Settings extends React.Component {
       dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
       loaded: false,
       text: null,
-      helpText: 'Type a company name or stock symbol.',
+      helpText: '输入币种查询',
     };
+  } 
+
+  componentDidMount(){
+    this.setState({
+      dataSource: this.state.dataSource.cloneWithRows(wealthway.getAllSupportedSxs),
+      loaded: true,
+      helpText: '输入币种查询',
+    });
   }
 
   onTyping(text) {
     this.setState({
       text: text.text || '',
-      helpText: 'Validating symbol...',
+      helpText: '查询中.......',
     });
 
     const that = this;
-    wealthway.symbolSuggest(text.text)
-      //  .then(response => response.text)
-      .then((result) => {
-        // result = result.replace(/(YAHOO\.util\.ScriptNodeDataSource\.callbacks\()(.*)(\);)/g, '$2');
-        // console.log("###########" + result);
-        return JSON.parse(result);
-      })
-      .then((json) => {
-        let filterArr = Object.entries(json).filter(item => item[0].includes(text.text) || item[1].includes(text.text));
-        console.log("Filter result:"+filterArr);
+    wealthway.symbolSuggest(text.text).then((result) => {        
+        console.log("Query result:",result);
         that.setState({
-          dataSource: that.state.dataSource.cloneWithRows(filterArr),
+          dataSource: that.state.dataSource.cloneWithRows(result),
           loaded: true,
-          helpText: 'Type a company name or stock symbol.',
+          helpText: '输入币种查询',
         });
       })
       .catch((error) => {
@@ -147,7 +147,7 @@ export default class Settings extends React.Component {
               onPress={Actions.pop}
             >
               <Text style={styles.cancelButtonText}>
-                Cancel
+                取消
               </Text>
             </TouchableHighlight>
           </View>
@@ -156,7 +156,7 @@ export default class Settings extends React.Component {
         <View style={styles.suggestion}>
           <ListView
             dataSource={this.state.dataSource}
-  renderRow={stock => { console.log("%%%%%%%%%" + stock); return <StockCell stock={stock} watchlistCache={this.state.watchlistCache} />; } }
+            renderRow={sx =><SxCell sx={sx} watchlistCache={this.state.watchlistCache} />}
           />
         </View>
       </View>

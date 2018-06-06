@@ -11,7 +11,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 
 // Flux
-import StockActions from '../../../actions/stock-action';
+import SxActions from '../../../actions/sx-action';
 
 const styles = StyleSheet.create({
   container: {
@@ -59,29 +59,29 @@ const styles = StyleSheet.create({
   },
 });
 
-export default class StockCell extends React.Component {
-  onPressAdd(stock) {
-    console.log('_onPressAdd', stock);
-    StockActions.addStock(stock);
+export default class SxCell extends React.Component {
+  onPressAdd(sx) {
+    console.log('_onPressAdd', sx);
+    SxActions.addSx(sx);
     Actions.pop();
   }
 
   render() {
     return (
-      <TouchableHighlight onPress={() => this.onPressAdd(this.props.stock)} underlayColor="#202020">
+      <TouchableHighlight onPress={() => this.onPressAdd(this.props.sx)} underlayColor="#202020">
         <View style={styles.container}>
           <View style={styles.stock}>
             <View style={styles.symbol}>
               <Text style={styles.symbolText}>
-                {this.props.stock[0]}
+                {this.props.sx.en}
               </Text>
               <Text style={styles.marketText}>
-                {this.props.stock[1]}
+                {this.props.sx.cn}
               </Text>
             </View>
             <View style={styles.name}>
               <Text style={styles.nameText}>
-                {this.props.stock[1]}
+                {this.props.sx.cn}
               </Text>
             </View>
           </View>
@@ -91,10 +91,10 @@ export default class StockCell extends React.Component {
   }
 }
 
-StockCell.propTypes = {
+SxCell.propTypes = {
   stock: PropTypes.array
 };
 
-StockCell.defaultProps = {
-  stock: [],
+SxCell.defaultProps = {
+  sx: {},
 };

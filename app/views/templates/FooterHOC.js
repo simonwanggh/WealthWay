@@ -17,28 +17,30 @@ import { IndicatorViewPager, PagerDotIndicator } from 'rn-viewpager';
 import Icon from 'react-native-vector-icons/Feather';
 
 // Flux
-import StockActions from '../../actions/stock-action';
-import StockStore from '../../stores/stock-store';
-
-// View Elements
-import StockCell from '../main/elements/stock-cell';
-import ChartPage from '../main/elements/chart-page';
-import DetailsPage from '../main/elements/details-page';
-import NewsPage from '../main/elements/news-page';
+import SxStore from '../../stores/sx-store';
 
 
-const styles = StyleSheet.create({
+const styleContains = [StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
     backgroundColor: 'black',
-  },
+  }}),
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'space-between',
+      backgroundColor: 'gray',
+    }})
+  ];
+
+const styles = StyleSheet.create({
   statusBar: {
     height: 20,
   },
   bodyBlock: {
     justifyContent: 'space-between',
-    flex: 15,
+    flex: 13,
   },
   footerBlock: {
     flex: 1,
@@ -48,6 +50,11 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
+  iconBlock :{
+    flex: 1,
+    flexDirection: 'column',
+    backgroundColor: 'transparent',
+  },
   settings: {
     flex: 1,
     alignItems: 'center',
@@ -56,10 +63,16 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
+  propertyText: {
+    fontSize: 12,
+    color: 'white',
+    textAlign: 'center',
+    backgroundColor: 'transparent'
+  }
 });
 
 
-export default (Comp) => {
+export default (Comp,styleIndex) => {
   return class Main extends React.Component {
     constructor(props) {
       super(props);
@@ -69,37 +82,55 @@ export default (Comp) => {
         loaded: false,
         refreshing: false,
         key: Math.random(),
-      }, StockStore.getState());
+      }, SxStore.getState());
     }
 
     
   
 
     render() {
+      console.log("##############",this.props)
+      const pssProps = this.props ? this.props : {};
       return (
-        <View style={styles.container}>
+        
+        <View style={styleContains[styleIndex].container}>
           {Platform.OS === 'ios' && <View style={styles.statusBar} />}
           <View style={styles.bodyBlock}>
-            <Comp {...this.props}/>
+            <Comp {...pssProps}/>
           </View>
           <View style={styles.footerBlock}>
             <TouchableHighlight
                 style={styles.settings}
                 onPress={Actions.main}
                 underlayColor="#202020">
-                <Icon name="trending-up" color="white" size={22} />
+                <View style = {styles.iconBlock}>
+                  <Icon name="cpu" color="white" size={22} />
+                  <Text style={styles.propertyText}>
+                  AI投
+                  </Text>
+                </View>
             </TouchableHighlight>
             <TouchableHighlight
                 style={styles.settings}
-                onPress={Actions.settings}
+                onPress={Actions.quotation}
                 underlayColor="#202020">
-                <Icon name="credit-card" color="white" size={22} />
+                <View style = {styles.iconBlock}>
+                  <Icon name="trending-up" color="white" size={22} />
+                  <Text style={styles.propertyText}>
+                  行情
+                  </Text>
+                </View>
             </TouchableHighlight>
             <TouchableHighlight
                 style={styles.settings}
-                onPress={Actions.settings}
+                onPress={Actions.my}
                 underlayColor="#202020">
-                <Icon name="user" color="white" size={22} />
+                <View style = {styles.iconBlock}>
+                  <Icon name="user" color="white" size={22} />
+                  <Text style={styles.propertyText}>
+                  我的
+                  </Text>
+                </View>
             </TouchableHighlight>
           </View>
         </View>
