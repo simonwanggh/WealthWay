@@ -1,8 +1,10 @@
 import React from 'react';
-import { Component, PropTypes, View, Text, Image, IntentAndroid, Button,StyleSheet } from 'react-native';
+import { Component, PropTypes, View, Platform,Text, Image, IntentAndroid, Button,StyleSheet } from 'react-native';
 import { Divider,Drawer, COLOR, ThemeProvider } from 'react-native-material-ui';
 import ImageOverlay from 'react-native-image-overlay';
 import {typography} from 'react-native-material-design-styles';
+import { Actions } from 'react-native-router-flux';
+import MIcon from 'react-native-vector-icons/MaterialIcons';
 
 const uiTheme = {
     palette: {
@@ -37,7 +39,21 @@ var styles = StyleSheet.create({
     },
     divider: {
         height: 1
-    }
+    },
+    toolbar: {
+        height: 56,
+        backgroundColor: '#202020',
+      },
+      navigatorBarIOS: {
+        backgroundColor: '#202020',
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        borderBottomColor: '#424242',
+      },
+      navigatorLeftButton: {
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 50,
+      },
   });
 
 changeScene = (path, name) => {
@@ -51,20 +67,53 @@ changeScene = (path, name) => {
 };
 
 export default class MyBody extends React.Component {
+
+
+    renderToolbar() {
+        if (Platform.OS === 'ios') {
+          return (
+            <NavigationBar
+              statusBar={{ tintColor: '#202020', style: 'light-content' }}
+              style={styles.navigatorBarIOS}
+              title={{ title: "我的", tintColor: 'white' }}
+              rightButton={{
+                title: 'Done',
+                tintColor: '#3CABDA',
+                handler: Actions.pop,
+              }}
+            />
+          );
+        } else if (Platform.OS === 'android') {
+          return (
+            <MIcon.ToolbarAndroid
+              style={styles.toolbar}
+              title='我的'
+              titleColor="white"
+              actions={[                
+                { title: 'back', iconName: 'arrow-back', iconSize: 26, show: 'always' }         
+              ]}
+              onActionSelected={ Actions.pop}
+            />
+          );
+        }
+      }
+
+
     render() {        
         return (
             <View style={styles.container}>
-                <View style={styles.headerBlock}> 
-                <ImageOverlay
-                    source={require('./../img/nav.jpg')}
-                    contentPosition="bottom">
-                    <View>
-                        <Image style={styles.image} source={require('./../img/opengraph.png')} />
-                        <Text>Amelia Edwards</Text>
-                        <Text>Kuala Lumpur, Malaysia</Text>
-                    
-                    </View>
-                </ImageOverlay>
+                {this.renderToolbar()}
+                <View style={styles.headerBlock}>                 
+                    <ImageOverlay
+                        source={require('./../img/nav.jpg')}
+                        contentPosition="bottom">
+                        <View>
+                            <Image style={styles.image} source={require('./../img/opengraph.png')} />
+                            <Text>Amelia Edwards</Text>
+                            <Text>Kuala Lumpur, Malaysia</Text>
+                        
+                        </View>
+                    </ImageOverlay>
                 </View>
             
                 <View style={styles.bodyBlock}>

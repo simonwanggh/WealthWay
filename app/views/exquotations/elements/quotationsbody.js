@@ -78,6 +78,8 @@ export default class QuotationBody extends React.Component {
       refreshing: false,
       key: Math.random(),
     }, SxStore.getState());
+
+    console.log("")
   }
 
   componentDidMount() {
@@ -85,9 +87,15 @@ export default class QuotationBody extends React.Component {
 
     SxActions.updateSxs();
   }
+  
 
   componentWillUnmount() {
     SxStore.unlisten(state => this.onAppSxChange(state));
+    console.log("HHHHHHHHHHHHHHHHHHHHHH",SxStore.getState())
+  }
+
+  componentWillUpdate(){
+    console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
   }
 
   onAppSxChange(state) {
@@ -103,7 +111,7 @@ export default class QuotationBody extends React.Component {
   
   renderDotIndicator() {
     return (
-      <PagerDotIndicator pageCount={3} />
+      <PagerDotIndicator pageCount={1} />
     );
   }
 
@@ -114,8 +122,11 @@ export default class QuotationBody extends React.Component {
   }
 
   onActionSelected(position) {
-   
+    if(position == 0){
       Actions.add();
+    }else{
+      Actions.pop();
+    }
    
   }
 
@@ -141,7 +152,8 @@ export default class QuotationBody extends React.Component {
           title='汇率'
           titleColor="white"
           actions={[
-            { title: 'Add', iconName: 'add', iconSize: 26, show: 'always' },           
+            { title: 'Add', iconName: 'add', iconSize: 26, show: 'always' },  
+            { title: 'back', iconName: 'arrow-back', iconSize: 26, show: 'always' }         
           ]}
           onActionSelected={position => this.onActionSelected(position)}
         />

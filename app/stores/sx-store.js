@@ -61,17 +61,11 @@ class SxStock {
     const that = this;
  
     let getSxs = wealthway.getSx(symString, 'quotes');
-    if(!getSxs){
+    if(!getSxs){      
       return;
     }
     getSxs.then(response => response.json())
       .then((json) => {   
-        // let quote = json.data;
-        // console.log("############### quate " , quote);
-        // const watchlistResult = that.state.watchlistResult ? that.state.watchlistResult : {} ;              
-        // watchlistResult[symbol] = quote;              
-        // store.save('watchlistResult', watchlistResult);
-        // that.setState({ watchlistResult });
         const watchlistResult = json.reduce((obj, item) => {
           obj[item.symbol] = item
           return obj

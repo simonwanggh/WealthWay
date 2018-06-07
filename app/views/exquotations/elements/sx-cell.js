@@ -93,7 +93,6 @@ export default class SxCell extends React.Component {
   }
 
   changeSelectedSx(sx) {
-    console.log('Selected Sx:', sx);
     SxActions.selectSx(sx);
   }
 
@@ -103,14 +102,14 @@ export default class SxCell extends React.Component {
 
   render() {
     let swipeBtns = [{
-      text: 'Delete',
+      text: '删除',
       backgroundColor: 'red',
       underlayColor: 'rgba(0, 0, 0, 1, 0.6)',
       onPress: () => { this.deleteSx(this.props.sx) }
     }];
     return (
       <Swipeout right={swipeBtns}
-      autoClose='true'
+      autoClose = {true}
       backgroundColor= 'transparent'>
         <TouchableHighlight
           style={[this.state.selectedSx === this.props.sx ? styles.selected : null]}

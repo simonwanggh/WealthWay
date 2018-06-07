@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#202020',
     alignItems: 'center',
+    paddingTop: 4,
     paddingLeft: 10,
     paddingRight: 10,
   },
@@ -77,12 +78,6 @@ export default (Comp,styleIndex) => {
     constructor(props) {
       super(props);
 
-      this.state = Object.assign({
-        dataSource: new ListView.DataSource({ rowHasChanged: (row1, row2) => row1 !== row2 }),
-        loaded: false,
-        refreshing: false,
-        key: Math.random(),
-      }, SxStore.getState());
     }
 
     
@@ -90,13 +85,13 @@ export default (Comp,styleIndex) => {
 
     render() {
       console.log("##############",this.props)
-      const pssProps = this.props ? this.props : {};
+      // const pssProps = this.props ? this.props : {};
       return (
         
         <View style={styleContains[styleIndex].container}>
           {Platform.OS === 'ios' && <View style={styles.statusBar} />}
           <View style={styles.bodyBlock}>
-            <Comp {...pssProps}/>
+            <Comp {...this.props}/>
           </View>
           <View style={styles.footerBlock}>
             <TouchableHighlight
