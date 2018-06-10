@@ -13,7 +13,8 @@ import ProductView from './app/views/AIproducts'
 import QuotationView from './app/views/exquotations';
 import AddView from './app/views/add';
 import MyView from './app/views/my';
-import ProfitDetailsView from './app/views/profitdetails'
+import ProfitDetailsView from './app/views/profitdetails';
+import InvestmentView from './app/views/investment';
 
 
 // @todo remove when RN upstream is fixed
@@ -26,6 +27,7 @@ const scenes = Actions.create(
   <Scene key="root" hideNavBar={true}>
     <Scene key="main" title="主页" component={ProductView} initial={true} />
     <Scene key="profit" title="收益" component={ProfitDetailsView}/>
+    <Scene key="invest" title="投资" component={InvestmentView}/>
     <Scene key="quotation" title="汇率" component={QuotationView} />
     <Scene key="add" direction="vertical" title="添加" component={AddView} />
     <Scene key="my" direction="vertical" title='我的' component={MyView} />

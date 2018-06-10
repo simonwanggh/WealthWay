@@ -6,6 +6,7 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 
 
@@ -115,7 +116,8 @@ export default class ProductCell extends React.Component {
 
  
   changeSelectedProduct(stock) {
-   
+    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+    Actions.invest();
   }
 
   render() {

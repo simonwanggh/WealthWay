@@ -43,6 +43,7 @@
     "react-native-swipeout": "2.3.3",
     "react-native-tab-view": "1.0.2",
     "react-native-instrument-board": "0.0.3",
+    "react-native-svg": "^6.0.0",
     "rn-viewpager": "1.2.9"
   },
   "devDependencies": {
