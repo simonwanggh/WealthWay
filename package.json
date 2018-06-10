@@ -41,7 +41,7 @@
     "react-native-material-ui": "1.22.3",
     "react-native-image-overlay": "0.1.2",
     "react-native-swipeout": "2.3.3",
-    "rn-viewpager": "^1.2.3"
+    "rn-viewpager": "1.2.9"
   },
   "devDependencies": {
     "eslint": "^4.5.0",

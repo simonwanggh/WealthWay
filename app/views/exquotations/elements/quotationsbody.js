@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
-    backgroundColor: 'black',
+    backgroundColor: 'white',
   },
   statusBar: {
     height: 20,
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   detailedBlock: {
     flex: 5,
-    backgroundColor: '#202020',
+    backgroundColor: 'gray',
     justifyContent: 'space-between',
   },
   yahoo: {
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     height: 56,
-    backgroundColor: '#202020',
+    backgroundColor: '#696969',
   },
   navigatorBarIOS: {
     backgroundColor: '#202020',
@@ -94,9 +94,6 @@ export default class QuotationBody extends React.Component {
     console.log("HHHHHHHHHHHHHHHHHHHHHH",SxStore.getState())
   }
 
-  componentWillUpdate(){
-    console.log("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
-  }
 
   onAppSxChange(state) {
     this.setState({

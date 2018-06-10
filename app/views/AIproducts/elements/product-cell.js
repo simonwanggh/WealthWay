@@ -18,53 +18,56 @@ const ROTATE_PROPERTIES = {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
-    marginLeft: 10,
-    marginRight: 10,
-    flexDirection: 'row',
-    height: 50,
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    backgroundColor: 'white',
+    marginLeft: 1,
+    marginRight: 1,
+    flexDirection: 'column',
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'flex-start',
     borderBottomColor: '#CCCCCC',
     borderBottomWidth: StyleSheet.hairlineWidth,
+    paddingLeft:5
   },
   selected: {
-    backgroundColor: '#202020',
+    backgroundColor: '#F5F5F5',
   },
-  symbol: {
+  productTitle: {
     flex: 1,
+    flexDirection: 'row',
   },
-  symbolText: {
+  prodTitleText: {
     fontSize: 16,
-    color: 'white',
+    color: 'black',
     textAlign: 'left',
-    marginTop: 10,
-    marginBottom: 10,
-    marginRight: 10,
+    marginTop: 1,
+    marginBottom: 1,
+    marginRight: 1,
+    paddingRight: 50
   },
   price: {
-    flex: 6,
+    flex: 1,
   },
   priceText: {
     fontSize: 16,
-    color: 'white',
+    color: 'black',
     textAlign: 'right',
-    marginTop: 10,
-    marginBottom: 10,
-    marginRight: 10,
+    marginTop: 1,
+    marginBottom: 1,
+    marginRight: 1,
   },
   longText: {
     fontSize: 12,
-    color: 'white',
+    color: 'black',
     textAlign: 'right',
-    marginTop: 10,
-    marginBottom: 10,
-    marginRight: 10,
+    marginTop: 1,
+    marginBottom: 1,
+    marginRight: 1,
   },
   changeRed: {
     backgroundColor: '#FC3D39',
     flex: 2,
-    padding: 5,
+    padding: 1,
     borderRadius: 3,
   },
   changeBlue: {
@@ -79,30 +82,38 @@ const styles = StyleSheet.create({
     padding: 5,
     borderRadius: 3,
   },
-  changeText: {
-    fontSize: 16,
-    color: 'white',
+  levelTextRed: {
+    fontSize: 10,
+    color: 'black',
     textAlign: 'center',
+    borderColor: '#FC3D39',
+    padding: 1,
+    borderRadius: 3, 
+    borderWidth: 1,
+    marginTop : 6,
+    marginBottom : 6   
   },
+  levelTextBlue: {
+    fontSize: 10,
+    color: 'black',
+    textAlign: 'center',  
+    borderColor: '#87CEEB',
+    padding: 1,
+    borderRadius: 3,
+    borderWidth: 1,
+    marginTop : 6,
+    marginBottom : 6  
+  }
 });
 
-export default class StockCell extends React.Component {
+export default class ProductCell extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {};   
   }
 
-  componentDidMount() {
-   
-  }
-
-  componentWillUnmount() {
-
-  }
-
  
-
   changeSelectedProduct(stock) {
    
   }
@@ -115,10 +126,19 @@ export default class StockCell extends React.Component {
         onPress={() => this.changeSelectedProduct(this.props.product)} underlayColor="#202020"
       >
         <View style={[styles.container,'1' === this.props.product ? styles.selected : null]}>
-          <View style={styles.symbol}>
-            <Text style={styles.symbolText}>
+          <View style={styles.productTitle}>
+            <Text style={styles.prodTitleText}>
               AI {this.props.product}
             </Text>
+           
+            <Text style={this.props.product === '1' ? styles.levelTextRed : styles.levelTextBlue}>
+              {(() => {switch (this.props.product === '1') {
+                case true: return '风险等级 3';
+                case false: return '风险等级 1';
+                default: return '风险等级 1';}})()}
+                    
+            </Text>
+          
           </View>
           <View style={styles.price}>
             <Text style={styles.longText}>
@@ -128,36 +148,19 @@ export default class StockCell extends React.Component {
                 default: return '模拟年收益率 10.8%  |  最大回撤 2.1%';}})()}        
               
             </Text>
-          </View>
-          <TouchableHighlight
-            style={this.props.product === '1' ? styles.changeRed : styles.changeBlue}    
-            underlayColor='#FC3D39'
-            onPress={() => console.log("press")}
-          >
-            <View>
-              <Text style={styles.changeText}>
-              {(() => {switch (this.props.product === '1') {
-                case true: return '风险等级 3';
-                case false: return '风险等级 1';
-                default: return '风险等级 1';}})()}
-                     
-              </Text>
-            </View>
-          </TouchableHighlight>
+          </View>        
         </View>
       </TouchableHighlight>
     );
   }
 }
 
-StockCell.propTypes = {
+ProductCell.propTypes = {
   watchlistResult: PropTypes.shape({}),
-  stock: PropTypes.shape({
-    symbol: PropTypes.string,
-  }),
+  product: PropTypes.string,
 };
 
-StockCell.defaultProps = {
-  watchlistResult: [],
-  stock: {},
+ProductCell.defaultProps = {
+  watchlistResult: {},
+  product: '',
 };

@@ -15,7 +15,7 @@ import SxStore from '../../../stores/sx-store';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     marginLeft: 10,
     marginRight: 10,
     flexDirection: 'row',
@@ -26,14 +26,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   selected: {
-    backgroundColor: '#202020',
+    backgroundColor: '#F5F5F5',
   },
   symbol: {
     flex: 3,
   },
   symbolText: {
     fontSize: 16,
-    color: 'white',
+    color: 'black',
     textAlign: 'left',
     marginTop: 10,
     marginBottom: 10,
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   },
   priceText: {
     fontSize: 12,
-    color: 'white',
+    color: 'black',
     textAlign: 'right',
     marginTop: 10,
     marginBottom: 10,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   changeText: {
     fontSize: 16,
-    color: 'white',
+    color: 'black',
     textAlign: 'center',
   },
 });

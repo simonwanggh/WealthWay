@@ -67,7 +67,7 @@ export default class ChartPage extends React.Component {
 
   onSxStoreChange(state) {
     if(state.selectedSx.en){
-      let requrl = this.picUrl.replace('{type}', state.selectedSx.en.toLowerCase());
+      let requrl = this.picUrl.replace('{type}', state.selectedSx.en.toLowerCase()+'?'+Math.random());
       this.setState({     
         
             timeSpan: '分时',
@@ -87,30 +87,30 @@ export default class ChartPage extends React.Component {
         <View style={styles.timeSpanGroup}>
           <TouchableOpacity
             style={styles.timeSpan}
-            onPress={() =>  {let rep = this.props.sx.en.toLowerCase();  this.setState({ timeSpan: '分时' ,  url : {uri : this.picUrl.replace('{type}', rep)}})}}
-            underlayColor="#202020"
+            onPress={() =>  {let rep = this.props.sx.en.toLowerCase();  this.setState({ timeSpan: '分时' ,  url : {uri : this.picUrl.replace('{type}', rep)+'?'+Math.random()}})}}
+            underlayColor="gray"
           >
             <Text style={[this.state.timeSpan === '分时' ? styles.timeSpanSelectedText : styles.timeSpanText]}>{'分时'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.timeSpan}
-            onPress={() => {let rep = this.props.sx.en.toLowerCase()+'_dayk'; this.setState({ timeSpan: '日K' ,  url : {uri : this.picUrl.replace('{type}', rep)}})}}
-            underlayColor="#202020"
+            onPress={() => {let rep = this.props.sx.en.toLowerCase()+'_dayk'; this.setState({ timeSpan: '日K' ,  url : {uri : this.picUrl.replace('{type}', rep)+'?'+Math.random()}})}}
+            underlayColor="gray"
           >
             <Text style={[this.state.timeSpan === '日K' ? styles.timeSpanSelectedText : styles.timeSpanText]}>{'日K'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.timeSpan}
-           onPress={() => {let rep = this.props.sx.en.toLowerCase()+'_weekk'; this.setState({ timeSpan: '周K' , url : {uri :  this.picUrl.replace('{type}', rep)}})}}
+           onPress={() => {let rep = this.props.sx.en.toLowerCase()+'_weekk'; this.setState({ timeSpan: '周K' , url : {uri :  this.picUrl.replace('{type}', rep)+'?'+Math.random()}})}}
            //onPress={() => console.log("********************* componentDidMount" , this.props.watchResult, this.props.stock[0])} 
-           underlayColor="#202020"
+           underlayColor="gray"
           >
             <Text style={[this.state.timeSpan === '周K' ? styles.timeSpanSelectedText : styles.timeSpanText]}>{'周K'}</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.timeSpan}
-            onPress={() => { let rep =  this.props.sx.en.toLowerCase()+'_monthk'; this.setState({ timeSpan: '月K' , url : {uri : this.picUrl.replace('{type}',rep)}} )}}
-            underlayColor="#202020"
+            onPress={() => { let rep =  this.props.sx.en.toLowerCase()+'_monthk'; this.setState({ timeSpan: '月K' , url : {uri : this.picUrl.replace('{type}',rep)+'?'+Math.random()}} )}}
+            underlayColor="gray"
           >
             <Text style={[this.state.timeSpan === '月K' ? styles.timeSpanSelectedText : styles.timeSpanText]}>{'月K'}</Text>
           </TouchableOpacity>
