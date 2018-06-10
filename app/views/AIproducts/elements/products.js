@@ -158,10 +158,7 @@ export default class ProductBody extends React.Component {
           barStyle="light-content"
         />
         {Platform.OS === 'ios' && <View style={styles.statusBar} />}
-        <TouchableOpacity style={styles.headerBlock} onPress={()=> {
-            console.log('does not work');
-            }
-          }>
+        <TouchableOpacity style={styles.headerBlock} onPress={Actions.profit}>
           <Text style={styles.labelText}>最新收益(美元)</Text>
           <Text style={styles.focusText}>68.86</Text>
           <Text style={styles.labelText}>总资产 51666   |   累计收益 1666</Text>
