@@ -7,6 +7,8 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import ProdActions from './../../../actions/prod-action';
+import ProdStore from './../../../stores/prod-store';
 
 
 
@@ -111,12 +113,26 @@ export default class ProductCell extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};   
+    this.state = {selectedProd : ''}; 
+    ProdActions.selectProd('');  
+  }
+
+  componentDidMount() {
+    ProdStore.listen(state => this.onProdStoreChange(state));
+  }
+
+  componentWillUnmount() {
+    ProdStore.unlisten(state => this.onProdStoreChange(state));
+  }
+
+
+  onProdStoreChange(state){
+    this.setState({selectedProd : state.selectedProd})
   }
 
  
-  changeSelectedProduct(stock) {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+  changeSelectedProduct(product) {
+    ProdActions.selectProd(product)
     Actions.invest();
   }
 
@@ -124,10 +140,10 @@ export default class ProductCell extends React.Component {
     
     return (
       <TouchableHighlight
-        style={['1' === this.props.product ? styles.selected : null]}
+        style={[this.state.selectedProd === this.props.product ? styles.selected : null]}
         onPress={() => this.changeSelectedProduct(this.props.product)} underlayColor="#202020"
       >
-        <View style={[styles.container,'1' === this.props.product ? styles.selected : null]}>
+        <View style={[styles.container,this.state.selectedProd === this.props.product ? styles.selected : null]}>
           <View style={styles.productTitle}>
             <Text style={styles.prodTitleText}>
               AI {this.props.product}

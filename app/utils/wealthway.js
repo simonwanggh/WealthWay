@@ -83,8 +83,7 @@ exports.symbolSuggest = function symbolSuggest(query) {
   return new Promise((resolve, reject) => {
     
        resolve(supportedSx.filter(item => {
-        console.log('2222222222222222', typeof item.en);
-        return item.en.includes(query) || item.cn.includes(query)
+       return item.en.includes(query) || item.cn.includes(query)
        }
        )) ;
    

@@ -186,7 +186,7 @@ export default class ProductBody extends React.Component {
                 style={styles.viewpager}
                 indicator={this.renderIndicator()}
                 autoPlayEnable
-                onPageSelected={(p) => console.log(p)}
+                //onPageSelected={}
             >
                 <View style={{backgroundColor: 'white'}}>
                   <Image source = {require('./../img/1.jpg')}
