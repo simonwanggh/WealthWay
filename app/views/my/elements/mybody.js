@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, PropTypes, View, Platform,Text, Image, IntentAndroid, Button,StyleSheet } from 'react-native';
+import { Component, PropTypes, View, Platform,Text, Image, IntentAndroid, Button,StyleSheet,StatusBar } from 'react-native';
 import { Divider,Drawer, COLOR, ThemeProvider } from 'react-native-material-ui';
 import ImageOverlay from 'react-native-image-overlay';
 import {typography} from 'react-native-material-design-styles';
@@ -42,10 +42,10 @@ var styles = StyleSheet.create({
     },
     toolbar: {
         height: 56,
-        backgroundColor: '#202020',
+        backgroundColor: '#FF7F50',
       },
       navigatorBarIOS: {
-        backgroundColor: '#202020',
+        backgroundColor: '#FF7F50',
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderBottomColor: '#424242',
       },
@@ -102,6 +102,10 @@ export default class MyBody extends React.Component {
     render() {        
         return (
             <View style={styles.container}>
+                <StatusBar
+                    backgroundColor="#FF6347"
+                    barStyle="light-content"
+                />
                 {this.renderToolbar()}
                 <View style={styles.headerBlock}>                 
                     <ImageOverlay

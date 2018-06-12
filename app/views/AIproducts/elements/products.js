@@ -134,8 +134,12 @@ export default class ProductBody extends React.Component {
     const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 });
     this.state = {
       dataSource: ds.cloneWithRows(['1', '2']),
-      refreshing: false
+      refreshing: false,
+      autoPlay:true
     };
+
+    this.onMarketData = this.onMarketData.bind(this);
+    
   }
 
 
@@ -147,6 +151,23 @@ export default class ProductBody extends React.Component {
             dotStyle={{backgroundColor: '#FFFFFF88'}}
         />
     )
+}
+
+
+
+componentWillUpdate(){
+  console.log("")
+}
+
+componentWillReceiveProps(nextProps) {
+  if (nextProps.backfrom === 'sx') {
+    this.setState({autoPlay:true});
+  }
+}
+
+onMarketData(){
+  Actions.quotation();
+  this.setState({autoPlay:false});
 }
 
 
@@ -185,9 +206,8 @@ export default class ProductBody extends React.Component {
         <IndicatorViewPager
                 style={styles.viewpager}
                 indicator={this.renderIndicator()}
-                autoPlayEnable
-                //onPageSelected={}
-            >
+                autoPlayEnable = {this.state.autoPlay}
+                onPageSelected={(p) => {}}>
                 <View style={{backgroundColor: 'white'}}>
                   <Image source = {require('./../img/1.jpg')}
                         style = {{flex: 1,width: '100%',
@@ -214,7 +234,7 @@ export default class ProductBody extends React.Component {
 
           <TouchableHighlight
             style={styles.settings}
-            onPress={Actions.quotation}
+            onPress={this.onMarketData}
             underlayColor="#F5F5F5">
             <View style={styles.iconBlock}>
               <Icon name="trending-up" color="black" size={22} />

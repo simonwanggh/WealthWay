@@ -6,6 +6,7 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
+  StatusBar,
   View,
 } from 'react-native';
 
@@ -23,10 +24,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black',
+    backgroundColor: 'white',
   },
   topBlock: {
-    backgroundColor: '#202020',
+    backgroundColor: '#FF7F50',
     paddingTop: 15,
     paddingBottom: 10,
     paddingLeft: 15,
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     flex: 4,
     flexDirection: 'column',
     height: 30,
-    backgroundColor: '#424242',
+    backgroundColor: '#FFA07A',
     borderRadius: 4,
     color: 'white',
     paddingLeft: 10,
@@ -115,7 +116,11 @@ export default class Settings extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {Platform.OS === 'ios' && <View style={{ height: 20, backgroundColor: '#202020' }} />}
+        <StatusBar
+            backgroundColor="#FF6347"
+            barStyle="light-content"
+          />
+        {Platform.OS === 'ios' && <View style={{ height: 20, backgroundColor: '#FF7F50' }} />}
         <View style={styles.topBlock}>
           <Text style={styles.helpText}>
             {this.state.helpText}

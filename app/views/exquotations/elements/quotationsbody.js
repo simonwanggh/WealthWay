@@ -7,6 +7,7 @@ import {
   Text,
   StyleSheet,
   TouchableHighlight,
+  StatusBar,
   View,
   RefreshControl,
 } from 'react-native';
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
   },
   detailedBlock: {
     flex: 5,
-    backgroundColor: 'gray',
+    backgroundColor: '#FFA07A',
     justifyContent: 'space-between',
   },
   yahoo: {
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     height: 56,
-    backgroundColor: '#696969',
+    backgroundColor: '#FF7F50',
   },
   navigatorBarIOS: {
     backgroundColor: '#202020',
@@ -122,7 +123,7 @@ export default class QuotationBody extends React.Component {
     if(position == 0){
       Actions.add();
     }else{
-      Actions.pop();
+      Actions.pop({refresh:{backfrom:'sx'}});     
     }
    
   }
@@ -161,6 +162,10 @@ export default class QuotationBody extends React.Component {
   render() {
     return (     
         <View style={styles.container}>
+          <StatusBar
+            backgroundColor="#FF6347"
+            barStyle="light-content"
+          />
           {Platform.OS === 'ios' && <View style={styles.statusBar} />}
           {this.renderToolbar()}
           <View style={styles.stocksBlock}>
