@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   toolbar: {
     height: 56,
-    backgroundColor: '#696969',
+    backgroundColor: '#FF7F50',
   },
   navigatorBarIOS: {
     backgroundColor: '#202020',
@@ -129,8 +129,8 @@ export default class QuotationBody extends React.Component {
     return (     
         <View style={styles.container}>
           <StatusBar
-          backgroundColor="gray"
-          barStyle="light-content"
+            backgroundColor="#FF6347"
+            barStyle="light-content"
           />
           {Platform.OS === 'ios' && <View style={styles.statusBar} />}
           {this.renderToolbar()}
